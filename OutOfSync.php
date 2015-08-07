@@ -3,7 +3,7 @@
 class OutOfSync
 {
     const API_SERVER = false;
-    const CACHE_TIME = 3; // 30 mins
+    const CACHE_TIME = 300; // 30 mins
     const CACHE_FILE_NAME = 'data.json';
 
     public function loadDataFromCache()

@@ -21,12 +21,12 @@ var OutOfSync = (function ($) {
             _elTableContent.html('');
             for (var country in resp.data) {
                 data = resp.data[country];
-                _elTableContent.append('<tr><td>' + country + '</td><td>' +  data[0] + '</td><td>' + data[1] + '</td></tr>')
+                _elTableContent.append('<tr><td>' + country  + ' <span class="flag-icon flag-icon-' + country.toLowerCase() + '"></span></td><td class="data">' +  data[0] + '</td><td class="data">' + data[1] + '</td></tr>')
             }
 
             _elLoading.addClass('hidden');
             _elUpdateInfo.removeClass('hidden');
-            _elUpdateInfo.find('b').html(new Date(resp.t * 1000) + ' [' + resp.cache + ']');
+            _elUpdateInfo.find('span').html(new Date(resp.t * 1000) + ' [' + resp.cache + ']');
         });
     },
     _loadData = function(callback) {

@@ -1,0 +1,19 @@
+h1 {
+    margin-bottom: 30px;
+}
+
+table td,
+table th {
+    font-size: 18px;
+    text-align: center;
+}
+
+p {
+    color: #999;
+}
+
+table th {
+    color: #999;
+    font-weight: normal;
+    font-size: 12px;
+}
