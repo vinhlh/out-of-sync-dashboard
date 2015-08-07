@@ -11,6 +11,27 @@ var OutOfSync = (function ($) {
             _updateData();
         }, INTERVAL_UPDATE_TIME);
     },
+    _numberFormat =  function(number, decimals, decPoint, thousandsSep) {
+        decimals = decimals || 0;
+        number = parseFloat(number);
+
+        if(!decPoint || !thousandsSep){
+            decPoint = '.';
+            thousandsSep = ',';
+        }
+
+        var roundedNumber = Math.round( Math.abs( number ) * ('1e' + decimals) ) + '';
+        var numbersString = decimals ? roundedNumber.slice(0, decimals * -1) : roundedNumber;
+        var decimalsString = decimals ? roundedNumber.slice(decimals * -1) : '';
+        var formattedNumber = "";
+
+        while (numbersString.length > 3) {
+            formattedNumber += thousandsSep + numbersString.slice(-3)
+            numbersString = numbersString.slice(0,-3);
+        }
+
+        return (number < 0 ? '-' : '') + numbersString + formattedNumber + (decimalsString ? (decPoint + decimalsString) : '');
+    },
     _updateData = function() {
         _elLoading.removeClass('hidden');
         _elUpdateInfo.addClass('hidden');
@@ -21,6 +42,8 @@ var OutOfSync = (function ($) {
             _elTableContent.html('');
             for (var country in resp.data) {
                 data = resp.data[country];
+                data[0] = _numberFormat(data[0]);
+                data[1] = _numberFormat(data[1]);
                 _elTableContent.append('<tr><td>' + country  + ' <span class="flag-icon flag-icon-' + country.toLowerCase() + '"></span></td><td class="data">' +  data[0] + '</td><td class="data">' + data[1] + '</td></tr>')
             }
 
