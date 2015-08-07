@@ -1,7 +1,7 @@
 var OutOfSync = (function ($) {
     var INTERVAL_UPDATE_TIME = 60000,
         API_URL = 'api.php',
-        OUT_OF_SYNC_STORAGE_KEY = 'zalora_out_of_sync',
+
         _elTableContent = $('table tbody'),
         _elLoading = $('.loading'),
         _elUpdateInfo = $('.update-info');
@@ -57,18 +57,6 @@ var OutOfSync = (function ($) {
         $.get(API_URL + '?t=' + (+ new Date()), function (resp) {
             callback(resp);
         });
-
-        if (!API_URL) { // for test
-            window.setTimeout(function () {
-                var resp = {
-                    'VN': [100, 20],
-                    'SG': [6, 11],
-                    'TH': [4, 4]
-                };
-                callback(resp);
-            }, 1000);
-        } else { // production
-        }
     };
 
     return {
