@@ -2,10 +2,23 @@ h1 {
     margin-bottom: 30px;
 }
 
-table td,
-table th {
-    font-size: 18px;
+table th,
+table td {
+    font-size: 14px;
     text-align: center;
+}
+
+table td.data {
+    text-align: center;
+    font-size: 18px;
+}
+
+table span {
+    font-size: 16px;
+}
+
+table td {
+    line-height: 24px !important;
 }
 
 p {
