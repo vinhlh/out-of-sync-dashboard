@@ -43,8 +43,9 @@ var OutOfSync = (function ($) {
             _elTableContent.html('');
             for (var country in resp.data) {
                 data = resp.data[country];
-                data[0] = _numberFormat(data[0]);
-                data[1] = _numberFormat(data[1]);
+                data[0] = '<font color="' + (data[0] > 0 ? 'red' : 'green') + '">' + _numberFormat(data[0]) + '</font>';
+                data[1] = '<font color="' + (data[1] > 0 ? 'red' : 'green') + '">' + _numberFormat(data[1]) + '</font>';
+
                 _elTableContent.append('<tr><td>' + country  + ' <span class="flag-icon flag-icon-' + country.toLowerCase() + '"></span></td><td class="data">' +  data[0] + '</td><td class="data">' + data[1] + '</td></tr>')
             }
 
