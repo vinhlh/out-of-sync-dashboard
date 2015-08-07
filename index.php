@@ -28,11 +28,11 @@
             </div>
         </div>
     </div>
-    <?php require_once 'OutOfSync.php'; ?>
+    <?php require_once 'config.php'; ?>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script>
-    var INTERVAL_UPDATE_TIME = <?php echo OutOfSync::CACHE_TIME * 0.2 * 1000; ?>;
+    var INTERVAL_UPDATE_TIME = <?php echo CACHE_TIMEOUT * 0.2 * 1000; ?>;
     </script>
     <script src="js/main.js"></script>
 </body>
