@@ -1,5 +1,5 @@
 var OutOfSync = (function ($) {
-    var API_URL = 'json.php',
+    var API_URL = 'api.php',
         OUT_OF_SYNC_STORAGE_KEY = 'zalora_out_of_sync',
         _elTableContent = $('table tbody'),
         _elLoading = $('.loading'),
