@@ -10,7 +10,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <h1><center>Out of Sync Dashboard</center></h1>
+                <h3><center>Out of Sync Dashboard</center></h3>
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -28,12 +28,8 @@
             </div>
         </div>
     </div>
-    <?php require_once 'config/config.php'; ?>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script>
-    var INTERVAL_UPDATE_TIME = <?php echo CACHE_TIMEOUT * 0.2 * 1000; ?>;
-    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
