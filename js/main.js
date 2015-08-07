@@ -1,6 +1,5 @@
 var OutOfSync = (function ($) {
-    var INTERVAL_UPDATE_TIME = 1800000, // 60 mins
-        API_URL = null,
+    var API_URL = 'json.php',
         OUT_OF_SYNC_STORAGE_KEY = 'zalora_out_of_sync',
         _elTableContent = $('table tbody'),
         _elLoading = $('.loading'),
@@ -20,31 +19,21 @@ var OutOfSync = (function ($) {
             var data;
 
             _elTableContent.html('');
-            for (var country in resp) {
-                data = resp[country];
+            for (var country in resp.data) {
+                data = resp.data[country];
                 _elTableContent.append('<tr><td>' + country + '</td><td>' +  data[0] + '</td><td>' + data[1] + '</td></tr>')
             }
 
             _elLoading.addClass('hidden');
             _elUpdateInfo.removeClass('hidden');
-            _elUpdateInfo.find('b').html(new Date());
+            _elUpdateInfo.find('b').html(new Date(resp.t * 1000) + ' [' + resp.cache + ']');
         });
     },
     _loadData = function(callback) {
-        var resp = localStorage.getItem(OUT_OF_SYNC_STORAGE_KEY);
+        $.get(API_URL + '?t=' + (+ new Date()), function (resp) {
+            callback(resp);
+        });
 
-        resp = JSON.parse(resp);
-        console.log(resp);
-        if (resp != null) {
-            if ((+new Date()) - resp.t < INTERVAL_UPDATE_TIME - 60000) { // 1 min
-                callback(resp.data);
-                return false;
-            } else {
-                localStorage.setItem(OUT_OF_SYNC_STORAGE_KEY, null);
-            }
-        }
-
-        console.log('call api');
         if (!API_URL) { // for test
             window.setTimeout(function () {
                 var resp = {
@@ -52,14 +41,9 @@ var OutOfSync = (function ($) {
                     'SG': [6, 11],
                     'TH': [4, 4]
                 };
-                localStorage.setItem(OUT_OF_SYNC_STORAGE_KEY, JSON.stringify({t: +new Date(), data:resp}))
                 callback(resp);
             }, 1000);
         } else { // production
-            $.get(API_URL, function (resp) {
-                localStorage.setItem(OUT_OF_SYNC_STORAGE_KEY, JSON.stringify({t: +new Date(), data:resp}))
-                callback(resp);
-            });
         }
     };
 

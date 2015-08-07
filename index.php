@@ -27,8 +27,12 @@
             </div>
         </div>
     </div>
+    <?php require_once 'OutOfSync.php'; ?>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+    var INTERVAL_UPDATE_TIME = <?php echo OutOfSync::CACHE_TIME * 0.2 * 1000; ?>;
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
