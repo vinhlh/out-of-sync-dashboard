@@ -11,7 +11,7 @@ angular
 
     function init() {
         updateData();
-        $interval(updateData, 1000);
+        $interval(updateData, 60000);
     }
 
     function updateData() {
