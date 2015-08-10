@@ -34,10 +34,10 @@
                                 </span>
                             </td>
                             <td class="data">
-                                <div>{{data.stock}}</div>
+                                <div>{{data.stock | number}}</div>
                             </td>
                             <td class="data">
-                                <div>{{data.status}}</div>
+                                <div>{{data.status | number}}</div>
                             </td>
                         </tr>
                     </tbody>
