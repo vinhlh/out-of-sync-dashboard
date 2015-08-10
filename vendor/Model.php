@@ -33,6 +33,7 @@ class Model extends SQLite3
             $logs['data'][$data['country'] . '.stock'][] = $data['stock'];
             $logs['data'][$data['country'] . '.status'][] = $data['status'];
         }
+
         if (count($logs['series']) > 0) {
             $logs['series'] = array_keys($logs['series']);
             $logs['labels'] = array_values(reset($logs['labels']));
