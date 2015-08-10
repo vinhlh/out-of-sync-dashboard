@@ -1,34 +1,14 @@
 <?php
 
+require_once 'Model.php';
+
 class OutOfSync
 {
-    public function loadDataFromCache()
+    private $_model = null;
+
+    public function __construct()
     {
-        if (!file_exists(CACHE_FILE_NAME)) {
-            return false;
-        }
-
-        $results = file_get_contents(CACHE_FILE_NAME);
-        $results = json_decode($results, true);
-
-        if (time() - $results['t'] > CACHE_TIMEOUT) {
-            return false;
-        }
-
-        $results['cache'] = true;
-        return $results;
-    }
-
-    public function loadDataViaAPI()
-    {
-        $results = file_get_contents(API_SERVER);
-        $results = json_decode($results, true);
-
-        $results = array('data' => $results, 't' => time());
-        file_put_contents(CACHE_FILE_NAME, json_encode($results, true));
-
-        $results['cache'] = false;
-        return $results;
+        $this->_model = new Model();
     }
 
     public function responseJson($data)
@@ -37,13 +17,22 @@ class OutOfSync
         echo json_encode($data);
     }
 
-    public function run() {
-        $data = $this->loadDataFromCache();
-
-        if ($data === false) {
-            $data = $this->loadDataViaAPI();
-        }
+    public function runAPI() {
+        $data = $this->_model->getAllLogsToday();
 
         $this->responseJson($data);
+    }
+
+    public function runCron()
+    {
+        $results = file_get_contents(API_SERVER);
+        $results = json_decode($results, true);
+
+        $this->_model->save($results);
+    }
+
+    public function initTable()
+    {
+        $this->_model->init();
     }
 }
